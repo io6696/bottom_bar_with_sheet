@@ -37,6 +37,11 @@ class BottomBarWithSheet extends StatefulWidget {
   /// Return int [index] of selected button
   final Function(int)? onSelectItem;
 
+  /// Callback [Function] works by changing sheet state
+  ///
+  /// Return boolean [isOpen]
+  final Function(bool)? onToggle;
+
   /// index of selected [BottomBarWithSheetItem] from [items]
   final int selectedIndex;
 
@@ -88,12 +93,14 @@ class BottomBarWithSheet extends StatefulWidget {
     required this.sheetChild,
     this.isAlwaysShowSheetChild = false,
     this.onSelectItem,
+    this.onToggle,
     required this.items,
     this.controller,
   })  : this._controller = controller ??
             BottomBarWithSheetController(
               initialIndex: selectedIndex,
               onItemSelect: onSelectItem,
+              onToggle: onToggle,
               sheetOpened: isOpened,
             ),
         super(key: key) {

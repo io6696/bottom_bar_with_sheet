@@ -5,12 +5,14 @@ class BottomBarWithSheetController {
     required int initialIndex,
     bool sheetOpened = false,
     this.onItemSelect,
+    this.onToggle,
   })  : _selectedIndex = initialIndex,
         _sheetOpened = sheetOpened;
   final _itemsController = StreamController<int>.broadcast();
   final _bottomSheetController = StreamController<bool>.broadcast();
 
   Function(int)? onItemSelect;
+  Function(bool)? onToggle;
   int _selectedIndex;
   bool _sheetOpened;
 
@@ -30,6 +32,9 @@ class BottomBarWithSheetController {
   void toggleSheet() {
     _sheetOpened = !_sheetOpened;
     _bottomSheetController.add(_sheetOpened);
+    if (onToggle != null) {
+      onToggle!(_sheetOpened);
+    }
   }
 
   Future<void> close() async {
