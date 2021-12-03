@@ -65,6 +65,9 @@ class BottomBarWithSheet extends StatefulWidget {
   ///  If true the [BottomBarWithSheetItem]'s DO NOT automatically close the child sheet when pressed
   final bool autoClose;
 
+  ///  If true the [sheetChild] will always be show
+  final bool isAlwaysShowSheetChild;
+
   /// Controller for workin with widget state
   final BottomBarWithSheetController? controller;
 
@@ -83,6 +86,7 @@ class BottomBarWithSheet extends StatefulWidget {
     this.mainActionButtonTheme = kDefaultMainActionButtonTheme,
     this.autoClose = true,
     required this.sheetChild,
+    this.isAlwaysShowSheetChild = false,
     this.onSelectItem,
     required this.items,
     this.controller,
@@ -181,7 +185,9 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
             crossAxisAlignment: CrossAxisAlignment.center,
             children: _bottomBarItems,
           ),
-          _isOpened ? Expanded(child: widget.sheetChild) : SizedBox()
+          _isOpened | widget.isAlwaysShowSheetChild
+              ? Expanded(child: widget.sheetChild)
+              : SizedBox()
         ],
       ),
     );
